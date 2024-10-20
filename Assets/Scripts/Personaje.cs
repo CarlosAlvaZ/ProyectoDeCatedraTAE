@@ -25,6 +25,8 @@ public class Personaje : MonoBehaviour
     private float posColX = 1;
     private float posColY = 0;
 
+    private bool estoyHablando = false;
+
     private void Awake()
     {
         rig = GetComponent<Rigidbody2D>();
@@ -39,7 +41,7 @@ public class Personaje : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !estoyHablando)
         {
             anim.SetTrigger("Ataca");
         }
@@ -54,9 +56,13 @@ public class Personaje : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        rig.velocity = new Vector2(horizontal, vertical) * velocidad;
+        if (!estoyHablando)
+        {
 
-        anim.SetFloat("Camina", Math.Abs(rig.velocity.magnitude));
+            rig.velocity = new Vector2(horizontal, vertical) * velocidad;
+
+            anim.SetFloat("Camina", Math.Abs(rig.velocity.magnitude));
+        }
 
         if (horizontal > 0)
         {
@@ -69,6 +75,11 @@ public class Personaje : MonoBehaviour
             srpitePersonaje.flipX = true;
         }
 
+    }
+
+    public void ChequearSiHablo(bool hablando)
+    {
+        estoyHablando = hablando;
     }
 
     private void CausarHerida()
@@ -85,7 +96,8 @@ public class Personaje : MonoBehaviour
         }
     }
 
-    private void Morir(){
+    private void Morir()
+    {
         Destroy(this.gameObject);
     }
 }
