@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "CatedraTAE.sln"
+    "dotnet.defaultSolution": "ProyectoDeCatedraTAE.sln"
 }
