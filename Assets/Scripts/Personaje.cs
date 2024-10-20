@@ -11,11 +11,16 @@ public class Personaje : MonoBehaviour
 
     private SpriteRenderer srpitePersonaje;
 
+    private int vidaPersonaje = 3;
+
     [SerializeField]
     private float velocidad;
 
     [SerializeField]
     private BoxCollider2D colEspada;
+
+    [SerializeField]
+    UIManager uiManager;
 
     private float posColX = 1;
     private float posColY = 0;
@@ -34,9 +39,13 @@ public class Personaje : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             anim.SetTrigger("Ataca");
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            CausarHerida();
         }
     }
 
@@ -60,5 +69,23 @@ public class Personaje : MonoBehaviour
             srpitePersonaje.flipX = true;
         }
 
+    }
+
+    private void CausarHerida()
+    {
+        if (vidaPersonaje > 0)
+        {
+            vidaPersonaje--;
+            uiManager.RestaCorazones(vidaPersonaje);
+            if (vidaPersonaje == 0)
+            {
+                anim.SetTrigger("Muerto");
+                Invoke(nameof(Morir), 1.3f);
+            }
+        }
+    }
+
+    private void Morir(){
+        Destroy(this.gameObject);
     }
 }

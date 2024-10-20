@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,6 +11,13 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private TMP_Text textoMonedas;
+
+    [SerializeField]
+    private List<GameObject> listaCorazones;
+
+    [SerializeField]
+    private Sprite corazonDesactivado;
+
 
     void Start()
     {
@@ -20,5 +28,11 @@ public class UIManager : MonoBehaviour
     {
         totalMonedas += moneda;
         textoMonedas.text = totalMonedas.ToString();
+    }
+
+    public void RestaCorazones(int indice) {
+        Image imagenCorazon = listaCorazones[indice].GetComponent<Image>();
+
+        imagenCorazon.sprite = corazonDesactivado;
     }
 }
