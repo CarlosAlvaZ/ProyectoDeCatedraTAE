@@ -16,7 +16,14 @@ public class Espada : MonoBehaviour
     {
         if (otro.CompareTag("Orco"))
         {
-            Destroy(otro.gameObject);
+            Animator anim = otro.gameObject.GetComponentInChildren<Animator>();
+            anim.SetTrigger("Muere");
+            Destroy(otro.gameObject, 1f);
+        }
+        else if (otro.CompareTag("Cofre"))
+        {
+            SpawnHeart sp = otro.gameObject.GetComponent<SpawnHeart>();
+            sp.DestroyChest();
         }
     }
 }

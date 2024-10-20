@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Personaje : MonoBehaviour
 {
@@ -78,7 +79,7 @@ public class Personaje : MonoBehaviour
         estoyHablando = hablando;
     }
 
-    private void CausarHerida()
+    public void CausarHerida()
     {
         if (vidaPersonaje > 0)
         {
@@ -95,5 +96,6 @@ public class Personaje : MonoBehaviour
     private void Morir()
     {
         Destroy(this.gameObject);
+        SceneManager.LoadScene(2);
     }
 }
